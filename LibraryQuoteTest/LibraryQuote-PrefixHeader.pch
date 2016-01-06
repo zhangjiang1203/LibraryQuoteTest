@@ -1,0 +1,18 @@
+//
+//  LibraryQuote-PrefixHeader.pch
+//  LibraryQuoteTest
+//
+//  Created by zjhaha on 16/1/6.
+//  Copyright © 2016年 zjhaha. All rights reserved.
+//
+
+#ifndef LibraryQuote_PrefixHeader_pch
+#define LibraryQuote_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* LibraryQuote_PrefixHeader_pch */
+
+
+#import "GDataXMLNode.h"

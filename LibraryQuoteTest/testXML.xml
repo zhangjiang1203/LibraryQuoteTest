@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<Users>
+   <User id = "101">
+   	<name>小华</name>
+   	<tel>
+   		<mobile>13913538124</mobile>
+   		<home>010-89067812</home>
+   	</tel>
+
+	</User>
+
+
+	<User id = "102">
+   	<name>张三</name>
+   	<tel>
+   		<mobile>13913532345</mobile>
+   		<home>010-89287926</home>
+   	</tel>
+
+	</User>
+
+</Users>
