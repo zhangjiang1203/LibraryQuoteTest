@@ -13,6 +13,10 @@
 		544ED9881C3D0A7500F53526 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9871C3D0A7500F53526 /* Assets.xcassets */; };
 		544ED98B1C3D0A7500F53526 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9891C3D0A7500F53526 /* LaunchScreen.storyboard */; };
 		544ED9931C3D0EDF00F53526 /* testXML.xml in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9921C3D0EDF00F53526 /* testXML.xml */; };
+		548F12CB1C3E014A009794BD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 548F12CA1C3E014A009794BD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		548F12CD1C3E07A7009794BD /* MyTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F12CC1C3E07A7009794BD /* MyTestModel.swift */; };
+		548F12D31C3E0933009794BD /* Jastor.m in Sources */ = {isa = PBXBuildFile; fileRef = 548F12D01C3E0933009794BD /* Jastor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		548F12D41C3E0933009794BD /* JastorRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 548F12D21C3E0933009794BD /* JastorRuntimeHelper.m */; };
 		738DF0FF8F3C248F453EBE86 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E453BF6B05A2F7525B11F70 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +33,13 @@
 		544ED9921C3D0EDF00F53526 /* testXML.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXML.xml; sourceTree = "<group>"; };
 		544ED9941C3D0F9100F53526 /* BrigeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrigeHeader.h; sourceTree = "<group>"; };
 		544ED9951C3D100400F53526 /* LibraryQuote-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LibraryQuote-PrefixHeader.pch"; sourceTree = "<group>"; };
+		548F12C91C3E014A009794BD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		548F12CA1C3E014A009794BD /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		548F12CC1C3E07A7009794BD /* MyTestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTestModel.swift; sourceTree = "<group>"; };
+		548F12CF1C3E0933009794BD /* Jastor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jastor.h; sourceTree = "<group>"; };
+		548F12D01C3E0933009794BD /* Jastor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Jastor.m; sourceTree = "<group>"; };
+		548F12D11C3E0933009794BD /* JastorRuntimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JastorRuntimeHelper.h; sourceTree = "<group>"; };
+		548F12D21C3E0933009794BD /* JastorRuntimeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JastorRuntimeHelper.m; sourceTree = "<group>"; };
 		71BABBF0887F1D467A36416F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,8 +93,23 @@
 				544ED98C1C3D0A7500F53526 /* Info.plist */,
 				544ED9941C3D0F9100F53526 /* BrigeHeader.h */,
 				544ED9951C3D100400F53526 /* LibraryQuote-PrefixHeader.pch */,
+				548F12C91C3E014A009794BD /* JSONKit.h */,
+				548F12CA1C3E014A009794BD /* JSONKit.m */,
+				548F12CC1C3E07A7009794BD /* MyTestModel.swift */,
+				548F12CE1C3E0933009794BD /* Jastor */,
 			);
 			path = LibraryQuoteTest;
+			sourceTree = "<group>";
+		};
+		548F12CE1C3E0933009794BD /* Jastor */ = {
+			isa = PBXGroup;
+			children = (
+				548F12CF1C3E0933009794BD /* Jastor.h */,
+				548F12D01C3E0933009794BD /* Jastor.m */,
+				548F12D11C3E0933009794BD /* JastorRuntimeHelper.h */,
+				548F12D21C3E0933009794BD /* JastorRuntimeHelper.m */,
+			);
+			path = Jastor;
 			sourceTree = "<group>";
 		};
 		A599BE7AB6E0751702DED4DE /* Pods */ = {
@@ -220,6 +246,10 @@
 			files = (
 				544ED9831C3D0A7500F53526 /* ViewController.swift in Sources */,
 				544ED9811C3D0A7500F53526 /* AppDelegate.swift in Sources */,
+				548F12CB1C3E014A009794BD /* JSONKit.m in Sources */,
+				548F12D41C3E0933009794BD /* JastorRuntimeHelper.m in Sources */,
+				548F12CD1C3E07A7009794BD /* MyTestModel.swift in Sources */,
+				548F12D31C3E0933009794BD /* Jastor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

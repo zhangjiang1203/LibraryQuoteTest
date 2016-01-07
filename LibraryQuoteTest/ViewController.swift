@@ -43,8 +43,60 @@ class ViewController: UIViewController {
             //输出调试信息
             print("User: uid:\(uid),userName:\(userName), mobile:\(mobile),home:\(home)")
         }
+        
+        testSystemJSON()
+        testJSONKit()
+    }
+    
+    func testSystemJSON(){
+        let user = ["name":"张江",
+                    "tel":["mobile":"13967890987","home":"010-9078990"]]
+        
+        //判断对象能不能转换
+        if (!NSJSONSerialization.isValidJSONObject(user)){
+            print("\(user)")
+            return
+        }
+        
+        //利用OC中的json库进行转换
+        let data:NSData! = try?NSJSONSerialization.dataWithJSONObject(user, options: .PrettyPrinted)
+        //data转换成string输出
+        let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+        print("转换之后的数据-----\(dataString)")
+        
+        //把data转换成json
+        let jsonData:AnyObject! = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+        print("Json Object is \(jsonData)")
+        
+        let name = jsonData.objectForKey("name")
+        let mobile = jsonData.objectForKey("tel")?.objectForKey("mobile")
+        let home = jsonData.objectForKey("tel")?.objectForKey("home")
+        print("输出拿到的结果--- name:\(name),mobile :\(mobile),home:\(home)")
+        
+        
+    }
+    
+    
+    func testJSONKit(){
+        let user:NSDictionary! = ["name":"张江",
+            "tel":["mobile":"13967890987","home":"010-9078990"]]
+        //使用jsonkit转换成json字符串
+        let jsonString = (user as NSDictionary).JSONString()
+        
+        print("拿到的数据--- \(jsonString)")
+        //使用jsonkit转换成nsdata类型的json数据
+        let jsonData = (user as NSDictionary).JSONData()
+        let testModel = MyTestModel()
+        testModel.name = user.objectForKey("name")! as! String
+        testModel.home = user.objectForKey("tel")!.objectForKey("home")! as! String
+        testModel.mobile = user.objectForKey("tel")!.objectForKey("mobile")! as! String
+
+        //data
+        print("拿到的数据--- \(testModel),data:\(jsonData.objectFromJSONData())")
     }
 
 
 }
+
+
 
