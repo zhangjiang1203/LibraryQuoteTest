@@ -7,11 +7,68 @@
 //
 
 import UIKit
-
-class ViewController: UIViewController {
+let KScreenWidth = UIScreen.mainScreen().bounds.width
+let KScreenHeight = UIScreen.mainScreen().bounds.height
+class ViewController: UIViewController,AwesomeMenuDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        testControlUI()
+        
+        
+    }
+    
+    /**
+     测试控件的用法
+     */
+    func testControlUI() {
+        let label = UILabel(frame: CGRectMake(10,20,300,100))
+        label.text = "《Swift语言开发实践》"
+        label.textAlignment = NSTextAlignment.Center
+        label.shadowColor = UIColor.grayColor()
+        label.shadowOffset = CGSizeMake(-2, 2)
+        self.view.addSubview(label);
+        
+        
+        UIScreen.mainScreen().bounds.width
+        let slider = UISlider(frame: CGRectMake(10,150,KScreenWidth-20,50))
+        slider.minimumValue = 0.0
+        slider.maximumValue = 1.0
+        slider.value = 0.8
+        slider.addTarget(self, action: "sliderValueChange:", forControlEvents: UIControlEvents.ValueChanged)
+        slider.minimumTrackTintColor = UIColor.blueColor()
+        slider.maximumTrackTintColor = UIColor.redColor()
+        self.view.addSubview(slider)
+        
+        //添加弹出框
+        let alertView = UIAlertController(title: "事件提醒", message: "本地服务通知您的一切事物已经准备好", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "好的", style: UIAlertActionStyle.Default,
+            handler: {
+                action in
+                print("点击了确定")
+        })
+        alertView.addAction(cancelAction)
+        alertView.addAction(okAction)
+        self.presentViewController(alertView, animated: true, completion: nil)
+        
+    
+        
+        
+    }
+    
+    /**
+     slider滑块
+     */
+    func sliderValueChange(slider:UISlider) {
+        print("输出这个值的---\(slider.value)")
+    }
+    
+    
+    /**
+     * 测试XML解析
+     */
+    func testGDataXML(){
         //获取XML路径
         let xmlPath = NSBundle.mainBundle().pathForResource("testXML", ofType: "xml")
         //获取XML文件内容
@@ -23,7 +80,7 @@ class ViewController: UIViewController {
         //开始格式化数据
         let doc:GDataXMLDocument! = try? GDataXMLDocument(data: xmlData, encoding: NSUTF8StringEncoding)
         //获取Users节点下的所有User节点，显示转换为elementl
-//        let users:Array! = doc.rootElement().elementsForName("User") as! [GDataXMLElement]
+        //        let users:Array! = doc.rootElement().elementsForName("User") as! [GDataXMLElement]
         //通过XPath方式获取Users节点下的所有User节点(XPath是XML语言中的定位语法,类似于数据库中的SQL功能)
         let users:Array! = try? doc.nodesForXPath("//User") as! [GDataXMLElement]
         
@@ -43,11 +100,11 @@ class ViewController: UIViewController {
             //输出调试信息
             print("User: uid:\(uid),userName:\(userName), mobile:\(mobile),home:\(home)")
         }
-        
-        testSystemJSON()
-        testJSONKit()
     }
     
+    /**
+     测试系统json解析
+     */
     func testSystemJSON(){
         let user = ["name":"张江",
                     "tel":["mobile":"13967890987","home":"010-9078990"]]
@@ -76,7 +133,9 @@ class ViewController: UIViewController {
         
     }
     
-    
+    /**
+     使用第三方类库经行解析
+     */
     func testJSONKit(){
         let user:NSDictionary! = ["name":"张江",
             "tel":["mobile":"13967890987","home":"010-9078990"]]
@@ -94,7 +153,64 @@ class ViewController: UIViewController {
         //data
         print("拿到的数据--- \(testModel),data:\(jsonData.objectFromJSONData())")
     }
-
+    
+    
+    /**
+     仿path菜单
+     */
+    func addPathButtonAnimation() {
+        let storyImage = UIImage(named: "bg-menuitem");
+        let storyHeightImage = UIImage(named: "bg-menuitem-highlighted")
+        
+        let startImage = UIImage(named: "icon-star");
+        
+        let awesomeItem1 = AwesomeMenuItem(image: storyImage, highlightedImage: storyHeightImage, contentImage: startImage, highlightedContentImage: nil)
+        
+        let awesomeItem2 = AwesomeMenuItem(image: storyImage, highlightedImage: storyHeightImage, contentImage: startImage, highlightedContentImage: nil)
+        
+        let awesomeItem3 = AwesomeMenuItem(image: storyImage, highlightedImage: storyHeightImage, contentImage: startImage, highlightedContentImage: nil)
+        
+        let awesomeItem4 = AwesomeMenuItem(image: storyImage, highlightedImage: storyHeightImage, contentImage: startImage, highlightedContentImage: nil)
+        
+        let awesomeItem5 = AwesomeMenuItem(image: storyImage, highlightedImage: storyHeightImage, contentImage: startImage, highlightedContentImage: nil)
+        
+        let itemArr = [awesomeItem1,awesomeItem2,awesomeItem3,awesomeItem4,awesomeItem5]
+        
+        let menuItem = AwesomeMenuItem(image: UIImage(named: "bg-addbutton"), highlightedImage: UIImage(named: "bg-addbutton-highlighted"), contentImage: UIImage(named: "icon-plus"), highlightedContentImage: UIImage(named: "icon-plus-highlighted"))
+        
+        
+        
+        let menu = AwesomeMenu(frame: self.view.bounds, startItem: menuItem, menuItems: itemArr)
+        menu.delegate  = self
+        menu.menuWholeAngle = 1.345
+        menu.farRadius = 110.0
+        menu.endRadius = 100.0
+        menu.nearRadius = 90.0
+        menu.animationDuration = 0.3
+        menu.startPoint = CGPointMake(50.0, 410.0);
+        self.view.addSubview(menu);
+        
+    }
+    //实现的代理方法
+    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
+        print("点击的是哪个按钮---\(idx)")
+    }
+    
+    func awesomeMenuDidFinishAnimationClose(menu: AwesomeMenu!) {
+        print("按钮动画结束---")
+    }
+    
+    func awesomeMenuDidFinishAnimationOpen(menu: AwesomeMenu!) {
+        print("按钮动画结束打开---")
+    }
+    
+    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
+        print("菜单按钮将要关闭---")
+    }
+    
+    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
+        print("菜单按钮将要打开---")
+    }
 
 }
 
