@@ -4,7 +4,7 @@
 //
 //  Created by zjhaha on 16/1/6.
 //  Copyright © 2016年 zjhaha. All rights reserved.
-//
+//http://blog.csdn.net/b719426297/article/details/22859181
 
 import UIKit
 import CoreMotion
