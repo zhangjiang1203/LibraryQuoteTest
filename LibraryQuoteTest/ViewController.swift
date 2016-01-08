@@ -7,30 +7,50 @@
 //
 
 import UIKit
-let KScreenWidth = UIScreen.mainScreen().bounds.width
-let KScreenHeight = UIScreen.mainScreen().bounds.height
-class ViewController: UIViewController,AwesomeMenuDelegate {
+import CoreMotion
+
+
+let KScreenWidth:CGFloat = UIScreen.mainScreen().bounds.width
+let KScreenHeight:CGFloat = UIScreen.mainScreen().bounds.height
+let KImageWH:CGFloat = 50
+class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIScrollViewDelegate {
+    //控制小球
+    var pickerView = UIPickerView()
+    var ballImage = UIImageView()
+    var speedX:UIAccelerationValue = 0
+    var speedY:UIAccelerationValue = 0
+    var motionManager = CMMotionManager()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        testControlUI()
+        testControlUI6()
         
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
     
     /**
      测试控件的用法
      */
-    func testControlUI() {
+    func testControlUI1() {
         let label = UILabel(frame: CGRectMake(10,20,300,100))
         label.text = "《Swift语言开发实践》"
         label.textAlignment = NSTextAlignment.Center
         label.shadowColor = UIColor.grayColor()
         label.shadowOffset = CGSizeMake(-2, 2)
         self.view.addSubview(label);
+
+    }
+    
+    /**
+     添加滑动块
+     */
+    func testControlUI2(){
         
-        
-        UIScreen.mainScreen().bounds.width
         let slider = UISlider(frame: CGRectMake(10,150,KScreenWidth-20,50))
         slider.minimumValue = 0.0
         slider.maximumValue = 1.0
@@ -39,9 +59,12 @@ class ViewController: UIViewController,AwesomeMenuDelegate {
         slider.minimumTrackTintColor = UIColor.blueColor()
         slider.maximumTrackTintColor = UIColor.redColor()
         self.view.addSubview(slider)
-        
+
+    }
+    
+    func testControlUI3(){
         //添加弹出框
-        let alertView = UIAlertController(title: "事件提醒", message: "本地服务通知您的一切事物已经准备好", preferredStyle: .Alert)
+        let alertView = UIAlertController(title: "事件提醒", message: "本地服务通知您的一切事物已经准备好", preferredStyle: UIAlertControllerStyle.Alert)
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil)
         let okAction = UIAlertAction(title: "好的", style: UIAlertActionStyle.Default,
             handler: {
@@ -51,9 +74,88 @@ class ViewController: UIViewController,AwesomeMenuDelegate {
         alertView.addAction(cancelAction)
         alertView.addAction(okAction)
         self.presentViewController(alertView, animated: true, completion: nil)
-        
+    }
     
+    func testControlUI4(){
+        //添加弹出框
+        //添加pickerView
+        pickerView.delegate   = self
+        pickerView.dataSource = self
+        //设置默认值
+        pickerView.selectRow(1, inComponent: 0, animated: true)
+        pickerView.selectRow(2, inComponent: 1, animated: true)
+        pickerView.selectRow(3, inComponent: 2, animated: true)
+        self.view.addSubview(pickerView)
+    }
+    
+    func testControlUI5(){
+        let viewWidth:CGFloat = UIScreen.mainScreen().bounds.width
+        //添加UIScrollView
+        let scrollView = UIScrollView()
+        scrollView.frame = self.view.bounds
+        scrollView.contentSize = CGSizeMake(KScreenWidth*5, KScreenHeight)
+        scrollView.pagingEnabled = true
+        scrollView.maximumZoomScale = 3
+        scrollView.minimumZoomScale = 0.5
+        scrollView.delegate = self
         
+        for i in 0..<5  {
+            let backView:UIView = UIView(frame: CGRectMake(viewWidth * CGFloat(i),0.0 ,KScreenWidth,KScreenHeight))
+            backView.backgroundColor = getRandomColor()
+            
+            scrollView.addSubview(backView)
+        }
+        self.view.addSubview(scrollView)
+    }
+    
+    /**
+    添加一个滚动的小球
+    */
+    func testControlUI6(){
+        ballImage = UIImageView(image: UIImage(named: "scrollBall6"))
+        ballImage.center = self.view.center
+        ballImage.bounds = CGRectMake(0, 0, KImageWH, KImageWH);
+        ballImage.layer.masksToBounds = true
+        ballImage.layer.cornerRadius = KImageWH/2
+        self.view.addSubview(ballImage)
+        
+        //设置更新时间
+        motionManager.accelerometerUpdateInterval = 1/60
+        if (motionManager.accelerometerAvailable){
+            let queue = NSOperationQueue.currentQueue()
+            
+            motionManager.startAccelerometerUpdatesToQueue(queue!, withHandler:
+                { (accelerometerData:CMAccelerometerData?, error: NSError?) -> Void in
+                //动态设置小球位置
+                self.speedX += accelerometerData!.acceleration.x
+                self.speedY += accelerometerData!.acceleration.y
+                
+                var posX = self.ballImage.center.x + CGFloat(self.speedX)
+                var posY = self.ballImage.center.y + CGFloat(self.speedY)
+                
+                //碰到边框后的反弹处理
+                if posX < KImageWH/2{
+                    posX = KImageWH/2
+                    //碰到左边的边框以0.4倍的速度反弹
+                    self.speedX *= -0.4
+                }else if posX > KScreenWidth - KImageWH/2{
+                    posX = KScreenWidth - KImageWH/2
+                    //碰到右边的边框以0.4倍的速度反弹
+                    self.speedX *= -0.4
+                }
+                
+                if posY < KImageWH/2{
+                    posY = KImageWH/2
+                    //碰到上边的边框以0.4倍的速度反弹
+                    self.speedY *= -0.6
+                }else if posY > KScreenHeight - KImageWH/2{
+                    posY = KScreenHeight - KImageWH/2
+                    //碰到下边的边框以0.4倍的速度反弹
+                    self.speedY *= -0.6
+                }
+                self.ballImage.center = CGPointMake(posX, posY)
+             })
+        }
         
     }
     
@@ -210,6 +312,49 @@ class ViewController: UIViewController,AwesomeMenuDelegate {
     
     func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
         print("菜单按钮将要打开---")
+    }
+    
+    
+    
+    //pickView的代理方法
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 9
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(row)+"---"+String(component)
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        let selectStr = String(row)+"---"+String(component)
+        
+        print("当前选用 \(selectStr)")
+    }
+    
+    //scrollView的代理方法
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        for subview:AnyObject in scrollView.subviews{
+            if subview.isKindOfClass(UIImageView){
+                return subview as? UIView
+            }
+        }
+        return nil
+    }
+    
+    /**
+     随机化颜色值
+     */
+    func getRandomColor()-> UIColor?{
+        let red   = Float(random()%255) / 255.0
+        let green = Float(random()%255) / 255.0
+        let blue  = Float(random()%255) / 255.0
+        
+        return UIColor.init(colorLiteralRed: red, green: green, blue: blue, alpha: 1)
     }
 
 }
