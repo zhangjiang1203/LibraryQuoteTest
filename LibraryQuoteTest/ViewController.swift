@@ -21,10 +21,21 @@ class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSourc
     var speedY:UIAccelerationValue = 0
     var motionManager = CMMotionManager()
     
+    //倒计时
+    var countDatePicker = UIDatePicker()
+    var leftTime:Int = 180
+    var timer:NSTimer!
+    var timeLabel:UILabel!
+    var startBtn:UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        testControlUI6()
+        //设置导航栏不遮挡状态
+        self.edgesForExtendedLayout = UIRectEdge.None;
+        self.extendedLayoutIncludesOpaqueBars = false;
+        self.modalPresentationCapturesStatusBarAppearance = false;
+        self.title = "Swift测试"
+        testControlUI8()
         
     }
     
@@ -62,8 +73,11 @@ class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSourc
 
     }
     
+    /**
+     添加弹出框
+     */
     func testControlUI3(){
-        //添加弹出框
+        
         let alertView = UIAlertController(title: "事件提醒", message: "本地服务通知您的一切事物已经准备好", preferredStyle: UIAlertControllerStyle.Alert)
         let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil)
         let okAction = UIAlertAction(title: "好的", style: UIAlertActionStyle.Default,
@@ -76,9 +90,10 @@ class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSourc
         self.presentViewController(alertView, animated: true, completion: nil)
     }
     
+    /**
+     添加pickerView
+     */
     func testControlUI4(){
-        //添加弹出框
-        //添加pickerView
         pickerView.delegate   = self
         pickerView.dataSource = self
         //设置默认值
@@ -88,6 +103,9 @@ class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSourc
         self.view.addSubview(pickerView)
     }
     
+    /**
+     添加滚动视图
+     */
     func testControlUI5(){
         let viewWidth:CGFloat = UIScreen.mainScreen().bounds.width
         //添加UIScrollView
@@ -158,6 +176,104 @@ class ViewController: UIViewController,AwesomeMenuDelegate,UIPickerViewDataSourc
         }
         
     }
+    
+    
+    
+    /**
+     添加时间选择器
+     */
+    func testControlUI7(){
+    
+        let datePick =  UIDatePicker(frame: CGRectMake(0, 0, KScreenWidth, 200))
+        datePick.addTarget(self, action: "datePickerValueChange:", forControlEvents: UIControlEvents.ValueChanged)
+        datePick.datePickerMode = UIDatePickerMode.Date
+        let dataFormatter = NSDateFormatter()
+        dataFormatter.dateFormat = "yyyy-MM-dd"
+        let minDate = dataFormatter.dateFromString("1990-01-01")
+        let maxDate = dataFormatter.dateFromString("2022-01-01")
+        datePick.minimumDate = minDate
+        datePick.maximumDate = maxDate
+        self.view.addSubview(datePick)
+    }
+    
+    func datePickerValueChange(datePick:UIDatePicker){
+        let dateFormatter = NSDateFormatter()
+        let date = datePick.date
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        print("当前选择的时间---\(dateFormatter.stringFromDate(date))")
+    }
+    
+    
+    /**
+     倒计时的pickerView
+     */
+    func testControlUI8(){
+        countDatePicker =  UIDatePicker(frame: CGRectMake(0, 0, KScreenWidth, 200))
+        countDatePicker.addTarget(self, action: "datePickerValueChange1:", forControlEvents: UIControlEvents.ValueChanged)
+        countDatePicker.datePickerMode = UIDatePickerMode.CountDownTimer
+        //leftTime必须为60的整数倍，设置值为100时，值自动变成60
+        countDatePicker.countDownDuration = NSTimeInterval(leftTime);// leftTime
+        self.view.addSubview(countDatePicker)
+        
+        //添加一个按钮
+        startBtn = UIButton(frame: CGRectMake(40, 220, KScreenWidth-80, 40))
+        startBtn.setTitle("开始", forState: .Normal)
+        startBtn.backgroundColor = UIColor.init(red: 0/255.0, green: 150/255.0, blue: 250/255.0, alpha: 1)
+        startBtn.layer.cornerRadius = 5;
+        startBtn.layer.masksToBounds = true
+        startBtn.addTarget(self, action: "startCount:", forControlEvents: .TouchUpInside)
+        self.view.addSubview(startBtn)
+        
+        //显示时间Label
+        timeLabel = UILabel(frame: CGRectMake(40, 280, KScreenWidth-80, 40))
+        timeLabel.font = UIFont.systemFontOfSize(17)
+        timeLabel.textAlignment = NSTextAlignment.Center
+        timeLabel.textColor = UIColor.blackColor()
+        self.view.addSubview(timeLabel)
+    }
+    
+    /**
+     倒计时
+     */
+    func datePickerValueChange1(datePick:UIDatePicker){
+        
+        print("倒计时"+String(datePick.countDownDuration))
+    }
+    
+    func startCount(sender:UIButton){
+    
+        sender.enabled = false
+        sender.setTitle("倒计时中……", forState: .Normal)
+        sender.backgroundColor = UIColor.grayColor()
+        //显示剩下的时间
+        timeLabel.text = "倒计时"+String(leftTime)
+        //获取倒计时器的剩余时间
+        leftTime = Int(countDatePicker.countDownDuration)
+        //禁用datePicker
+        countDatePicker.enabled = false
+        
+        //每隔60s执行一次
+        timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target: self, selector: "tickDown", userInfo: nil, repeats: true)
+    
+    }
+    
+    func tickDown(){
+        //将时间减少
+        leftTime -= 1
+        countDatePicker.countDownDuration = NSTimeInterval(leftTime)
+        timeLabel.text = "倒计时"+String(leftTime)
+        if leftTime < 0 {
+            leftTime = 180
+            timer.invalidate()
+            countDatePicker.enabled = true
+            startBtn.enabled = true
+            startBtn.setTitle("开始", forState: .Normal)
+            startBtn.backgroundColor = UIColor.init(red: 0/255.0, green: 150/255.0, blue: 250/255.0, alpha: 1)
+            timeLabel.text = "倒计时0"
+        }
+        
+    }
+     
     
     /**
      slider滑块

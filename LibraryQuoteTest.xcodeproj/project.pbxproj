@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		544ED9811C3D0A7500F53526 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544ED9801C3D0A7500F53526 /* AppDelegate.swift */; };
 		544ED9831C3D0A7500F53526 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544ED9821C3D0A7500F53526 /* ViewController.swift */; };
-		544ED9861C3D0A7500F53526 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9841C3D0A7500F53526 /* Main.storyboard */; };
 		544ED9881C3D0A7500F53526 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9871C3D0A7500F53526 /* Assets.xcassets */; };
-		544ED98B1C3D0A7500F53526 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9891C3D0A7500F53526 /* LaunchScreen.storyboard */; };
 		544ED9931C3D0EDF00F53526 /* testXML.xml in Resources */ = {isa = PBXBuildFile; fileRef = 544ED9921C3D0EDF00F53526 /* testXML.xml */; };
 		548F12CB1C3E014A009794BD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 548F12CA1C3E014A009794BD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		548F12CD1C3E07A7009794BD /* MyTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F12CC1C3E07A7009794BD /* MyTestModel.swift */; };
@@ -42,9 +40,7 @@
 		544ED97D1C3D0A7500F53526 /* LibraryQuoteTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryQuoteTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		544ED9801C3D0A7500F53526 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		544ED9821C3D0A7500F53526 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		544ED9851C3D0A7500F53526 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		544ED9871C3D0A7500F53526 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		544ED98A1C3D0A7500F53526 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		544ED98C1C3D0A7500F53526 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		544ED9921C3D0EDF00F53526 /* testXML.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXML.xml; sourceTree = "<group>"; };
 		544ED9941C3D0F9100F53526 /* BrigeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrigeHeader.h; sourceTree = "<group>"; };
@@ -121,9 +117,7 @@
 				544ED9921C3D0EDF00F53526 /* testXML.xml */,
 				544ED9801C3D0A7500F53526 /* AppDelegate.swift */,
 				544ED9821C3D0A7500F53526 /* ViewController.swift */,
-				544ED9841C3D0A7500F53526 /* Main.storyboard */,
 				544ED9871C3D0A7500F53526 /* Assets.xcassets */,
-				544ED9891C3D0A7500F53526 /* LaunchScreen.storyboard */,
 				544ED98C1C3D0A7500F53526 /* Info.plist */,
 				544ED9941C3D0F9100F53526 /* BrigeHeader.h */,
 				544ED9951C3D100400F53526 /* LibraryQuote-PrefixHeader.pch */,
@@ -251,7 +245,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				548F12ED1C3E3403009794BD /* bg-addbutton.png in Resources */,
-				544ED98B1C3D0A7500F53526 /* LaunchScreen.storyboard in Resources */,
 				548F12F11C3E3403009794BD /* bg-menuitem.png in Resources */,
 				548F12EC1C3E3403009794BD /* bg-addbutton-highlighted@2x.png in Resources */,
 				548F12F51C3E3403009794BD /* icon-plus.png in Resources */,
@@ -261,7 +254,6 @@
 				548F12F61C3E3403009794BD /* icon-plus@2x.png in Resources */,
 				548F12F21C3E3403009794BD /* bg-menuitem@2x.png in Resources */,
 				544ED9881C3D0A7500F53526 /* Assets.xcassets in Resources */,
-				544ED9861C3D0A7500F53526 /* Main.storyboard in Resources */,
 				548F12F41C3E3403009794BD /* icon-plus-highlighted@2x.png in Resources */,
 				548F12F71C3E3403009794BD /* icon-star.png in Resources */,
 				548F12EF1C3E3403009794BD /* bg-menuitem-highlighted.png in Resources */,
@@ -338,25 +330,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		544ED9841C3D0A7500F53526 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				544ED9851C3D0A7500F53526 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		544ED9891C3D0A7500F53526 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				544ED98A1C3D0A7500F53526 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		544ED98D1C3D0A7500F53526 /* Debug */ = {
@@ -445,6 +418,7 @@
 			baseConfigurationReference = 0DE3778732ACF875D363C64A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LibraryQuoteTest/LibraryQuote-PrefixHeader.pch";
 				INFOPLIST_FILE = LibraryQuoteTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -459,6 +433,7 @@
 			baseConfigurationReference = 71BABBF0887F1D467A36416F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LibraryQuoteTest/LibraryQuote-PrefixHeader.pch";
 				INFOPLIST_FILE = LibraryQuoteTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
